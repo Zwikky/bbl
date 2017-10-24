@@ -1,6 +1,6 @@
 {
-  "name": "NearmeApp v3",
-  "app_id": "com.quanlabs.nearmeapp",
+  "name": "Black Business Locator",
+  "app_id": "net.smartdev.bbl",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
