@@ -27,7 +27,7 @@ export class AppConfig {
 
    /* Unit: km or mi  */
    public static get DEFAULT_UNIT(): string {
-     return 'mi';
+     return 'km';
    }
 
    /* Map style: satellite or roadmap */

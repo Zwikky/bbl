@@ -26,21 +26,21 @@
         <ion-col col-4>
           <button ion-button icon-left small round block
             color="primary" (click)="onLike()">
-            <ion-icon name="heart"></ion-icon>
+            <ion-icon name="heart" color="danger"></ion-icon>
             {{ "LIKE" | translate }}
           </button>
         </ion-col>
         <ion-col col-4>
           <button ion-button icon-left small round block
             color="primary" (click)="onRate()">
-            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star" color="danger"></ion-icon>
             {{ "RATE" | translate }}
           </button>
         </ion-col>
         <ion-col col-4>
           <button ion-button icon-left small round block
             color="primary" (click)="onShare()">
-            <ion-icon name="share"></ion-icon>
+            <ion-icon name="share" color="danger"></ion-icon>
             {{ "SHARE" | translate }}
           </button>
         </ion-col>
@@ -55,7 +55,7 @@
       [scrollTarget]="container.getScrollElement()">
     <ion-fab right top>
       <button ion-fab>
-        <ion-icon name="pin" (click)="goToMap()"></ion-icon>
+        <ion-icon name="pin" (click)="goToMap()" color="danger"></ion-icon>
       </button>
     </ion-fab>
 
@@ -70,7 +70,7 @@
         <small>({{ place.distance(location, unit) }})</small>
       </span>
       <button ion-button item-right color="primary" (click)="goToMap()">
-        <ion-icon name="navigate"></ion-icon>
+        <ion-icon name="navigate" color="danger"></ion-icon>
         {{ "START" | translate }}
       </button>
     </ion-item>
@@ -84,22 +84,22 @@
 
     <ion-list no-lines>
       <button ion-item (click)="goToMap()">
-        <ion-icon name="map" item-left color="dark"></ion-icon>
+        <ion-icon name="map" item-left color="danger"></ion-icon>
         {{ "GET_DIRECTIONS" | translate }}
       </button>
 
       <button ion-item (click)="onCall()" *ngIf="place.phone">
-        <ion-icon name="call" item-left color="dark"></ion-icon>
+        <ion-icon name="call" item-left color="danger"></ion-icon>
         {{ "PHONE" | translate }}
       </button>
 
       <button ion-item (click)="openUrl()" *ngIf="place.website && place.website !== 'http://'">
-        <ion-icon name="globe" item-left color="dark"></ion-icon>
+        <ion-icon name="globe" item-left color="danger"></ion-icon>
         {{ "WEBSITE" | translate }}
       </button>
 
       <button ion-item (click)="goToReviews()">
-        <ion-icon name="star" item-left color="dark"></ion-icon>
+        <ion-icon name="star" item-left color="danger"></ion-icon>
         {{ "REVIEWS" | translate }}
       </button>
 
