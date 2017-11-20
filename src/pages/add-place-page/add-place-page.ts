@@ -5,6 +5,7 @@ import { BasePage } from '../base-page/base-page';
 import { Place } from '../../providers/place-service';
 import { MapStyle } from '../../providers/map-style';
 import { ParseFile } from '../../providers/parse-file-service';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { Category } from '../../providers/categories';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -29,6 +30,7 @@ export class AddPlacePage extends BasePage {
     private formBuilder: FormBuilder,
     private platform: Platform,
     private place: Place,
+    private geolocation: Geolocation,
     private googleMaps: GoogleMaps,
     private camera: Camera,
     private events: Events,
@@ -39,9 +41,12 @@ export class AddPlacePage extends BasePage {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      address: new FormControl(''),
-      phone: new FormControl(''),
+      description: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
+      phone2: new FormControl(''),
+      email: new FormControl('', Validators.required),
+      hours: new FormControl('', Validators.required),
       website: new FormControl('http://')
     });
 
@@ -211,12 +216,25 @@ export class AddPlacePage extends BasePage {
     this.place.address = this.form.value.address;
     this.place.website = this.form.value.website;
     this.place.phone = this.form.value.phone;
+    this.place.phone2 = this.form.value.phone2;
+    this.place.hours = this.form.value.hours;
+    this.place.email = this.form.value.email;
 
     this.showLoadingView();
 
-    this.marker.getPosition().then(position => {
+    const options: GeolocationOptions = {
+      enableHighAccuracy: true,
+      timeout: 10000
+    };
 
-      this.place.location = position;
+    this.geolocation.getCurrentPosition(options).then(pos => {
+      this.place.location = pos.coords;
+    });
+
+
+  this.marker.getPosition().then(position => {
+
+     this.place.location = position;
 
       this.place.save().then(place => {
         this.showContentView();

@@ -1,7 +1,7 @@
 .PHONY: run
 
 # certs and output
-OUTPUT_FILE=NearmeApp-Ionic2.apk
+OUTPUT_FILE=net.smartdev.bbl.apk
 ALIAS=REPLACE_WITH_YOUR_KEYSTORE_ALIAS
 KEYPASS=REPLACE_WITH_YOUR_KEYSTORE_PASSWORD
 
@@ -11,7 +11,7 @@ KEYSTORE=REPLACE_WITH_YOUR_KEYSTORE_ALIAS
 UNSIGNED=platforms/android/build/outputs/apk/android-release-unsigned.apk
 
 # Replace with your package name defined in config.xml
-PACKAGE='com.quanlabs.nearmeapp'
+PACKAGE='net.smartdev.bbl'
 
 # create a signed apk
 sign:

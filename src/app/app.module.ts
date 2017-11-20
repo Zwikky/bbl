@@ -11,11 +11,13 @@ import { User } from '../providers/user-service';
 import { LocalStorage } from '../providers/local-storage';
 import { Preference } from '../providers/preference';
 import { MapStyle } from '../providers/map-style';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { OneSignal } from '@ionic-native/onesignal';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { File } from '@ionic-native/file';
@@ -38,6 +40,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
+import { TermsProvider } from '../providers/terms/terms';
 
 export function HttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,6 +79,7 @@ export function HttpLoaderFactory(http: Http) {
     LaunchNavigator,
     CallNumber,
     InAppBrowser,
+    OneSignal,
     SocialSharing,
     GoogleMaps,
     Camera,
@@ -85,6 +89,7 @@ export function HttpLoaderFactory(http: Http) {
     HeaderColor,
     BrowserTab,
     File,
-    Preference, MapStyle, { provide: ErrorHandler, useClass: IonicErrorHandler }]
+    Preference, MapStyle, { provide: ErrorHandler, useClass: IonicErrorHandler },
+    TermsProvider]
 })
 export class AppModule {}

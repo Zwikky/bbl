@@ -48,22 +48,20 @@
     </ion-grid>
   </ion-card>
 
-  <ion-card>
+  <ion-card class="card-secondary">
 
     <img src="assets/img/avatar.png" offset="100"
       lazyLoad="https://maps.googleapis.com/maps/api/staticmap?markers=color:yellow%7C{{place.location.latitude}},{{place.location.longitude}}&zoom=18&format=png&maptype=roadmap&style=element:geometry%7Ccolor:0x242f3e&style=element:labels.text.fill%7Ccolor:0x746855&style=element:labels.text.stroke%7Ccolor:0x242f3e&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi.park%7Celement:geometry%7Ccolor:0x263c3f&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x6b9a76&style=feature:road%7Celement:geometry%7Ccolor:0x38414e&style=feature:road%7Celement:geometry.stroke%7Ccolor:0x212a37&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x9ca5b3&style=feature:road.highway%7Celement:geometry%7Ccolor:0x746855&style=feature:road.highway%7Celement:geometry.stroke%7Ccolor:0x1f2835&style=feature:road.highway%7Celement:labels.text.fill%7Ccolor:0xf3d19c&style=feature:transit%7Celement:geometry%7Ccolor:0x2f3948&style=feature:transit.station%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:water%7Celement:geometry%7Ccolor:0x17263c&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x515c6d&style=feature:water%7Celement:labels.text.stroke%7Ccolor:0x17263c&size=600x250"
       [scrollTarget]="container.getScrollElement()">
     <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="pin" (click)="goToMap()" color="danger"></ion-icon>
+      <button ion-fab (click)="goToMap()">
+        <ion-icon name="pin" color="danger"></ion-icon>
       </button>
     </ion-fab>
 
-    <ion-item color="secondary" *ngIf="place.address">
-      <ion-card-content>
+    <ion-card-content color="secondary" *ngIf="place.address" text-center>
       <span ion-text color="light">{{ place.address }}</span>
     </ion-card-content>
-    </ion-item>
 
     <ion-item color="secondary">
       <span class="bold" item-left ion-text color="primary" *ngIf="location">
@@ -88,14 +86,30 @@
         {{ "GET_DIRECTIONS" | translate }}
       </button>
 
+      <a ion-item *ngIf="place.email" href="mailto:{{place.email}}">
+        <ion-icon name="mail" item-left color="danger"></ion-icon>
+        {{ place.email }}
+      </a>
+
       <button ion-item (click)="onCall()" *ngIf="place.phone">
         <ion-icon name="call" item-left color="danger"></ion-icon>
-        {{ "PHONE" | translate }}
+        {{ place.phone }}
+      </button>
+
+      <button ion-item (click)="onCall()" *ngIf="place.phone2">
+        <ion-icon name="call" item-left color="danger"></ion-icon>
+        {{ place.phone2 }}
       </button>
 
       <button ion-item (click)="openUrl()" *ngIf="place.website && place.website !== 'http://'">
         <ion-icon name="globe" item-left color="danger"></ion-icon>
-        {{ "WEBSITE" | translate }}
+        {{ place.website }}
+      </button>
+
+
+      <button ion-item (click)="openUrl()" *ngIf="place.hours">
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        {{ place.hours }}
       </button>
 
       <button ion-item (click)="goToReviews()">

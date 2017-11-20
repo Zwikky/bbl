@@ -135,12 +135,37 @@ export class Place extends Parse.Object {
     this.set('description', val);
   }
 
+  get email(): string {
+    return this.get('email');
+  }
+
+  set email(val) {
+    this.set('email', val);
+  }
+
   get phone(): string {
     return this.get('phone');
   }
 
   set phone(val) {
     this.set('phone', val);
+  }
+
+  get phone2(): string {
+    return this.get('phone2');
+  }
+
+  set phone2(val) {
+    this.set('phone2', val);
+  }
+
+
+  get hours(): string {
+    return this.get('hours');
+  }
+
+  set hours(val) {
+    this.set('hours', val);
   }
 
   get website(): string {

@@ -50,6 +50,12 @@
       </ion-item>
 
       <ion-item>
+        <ion-icon name="mail" item-left color="primary"></ion-icon>
+        <ion-label color="primary">{{ "EMAIL" | translate }}</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-icon name="pin" item-left color="primary"></ion-icon>
         <ion-label color="primary">{{ "ADDRESS" | translate }}</ion-label>
         <ion-input type="text" formControlName="address">
@@ -57,9 +63,21 @@
       </ion-item>
 
       <ion-item>
+        <ion-icon name="clock" item-left color="primary"></ion-icon>
+        <ion-label color="primary">{{ "Business Hours" | translate }}</ion-label>
+        <ion-input type="text" formControlName="hours" placeholder="08:00 - 17:00"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-icon name="call" item-left color="primary"></ion-icon>
         <ion-label color="primary">{{ "PHONE" | translate }}</ion-label>
         <ion-input type="text" formControlName="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="call" item-left color="primary"></ion-icon>
+        <ion-label color="primary">{{ "PHONE" | translate }} 2</ion-label>
+        <ion-input type="text" formControlName="phone2" placeholder="(optional)"></ion-input>
       </ion-item>
 
       <ion-item>

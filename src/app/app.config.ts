@@ -12,7 +12,7 @@ export class AppConfig {
 
    /* AdMob Banner ID  */
    public static get BANNER_ID(): string {
-     return '';
+     return 'ca-app-pub-1381209293479508~5759002142';
    }
 
    /* Google Analytics Tracking ID  */

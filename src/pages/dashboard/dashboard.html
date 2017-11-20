@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Dashboard</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding #container>
+
+  <ion-list style="padding-top: 10px">
+      <ion-item (click)="goToCategories()" color="dark" no-lines>
+      <ion-thumbnail item-left>
+        <img src="assets/img/categories.png" offset="100">
+      </ion-thumbnail>
+      <h2>Categories</h2>
+      </ion-item>
+<br>
+      <ion-item (click)="goToSearch()" color="dark" no-lines>
+          <ion-thumbnail item-left>
+            <img src="assets/img/search.png" offset="100">
+          </ion-thumbnail>
+          <h2>Search</h2>
+          </ion-item>
+<br>
+          <ion-item (click)="goToAdd()" color="dark" no-lines>
+              <ion-thumbnail item-left>
+                <img src="assets/img/add.png" offset="100">
+              </ion-thumbnail>
+              <h2>Add Business</h2>
+              </ion-item>
+              <br>
+              <ion-item (click)="goToProfile()" color="dark" no-lines>
+                  <ion-thumbnail item-left>
+                    <img src="assets/img/profile.png" offset="100">
+                  </ion-thumbnail>
+                  <h2>Profile</h2>
+                  </ion-item>
+  </ion-list>
+
+</ion-content>

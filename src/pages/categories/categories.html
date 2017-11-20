@@ -3,11 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Dashboard</ion-title>
+    <ion-title>{{'CATEGORIES' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding #container>
+<ion-content #container>
 
   <empty-view *ngIf="isErrorViewVisible" icon="alert"
     [text]="'ERROR_CATEGORIES' | translate">
@@ -25,13 +25,13 @@
   </ion-refresher>
 
   <ion-list *ngIf="isContentViewVisible">
-    <ion-item *ngFor="let category of categories" (click)="goToPlaces(category)">
+    <ion-item class="bold" *ngFor="let category of categories" (click)="goToPlaces(category)">
       <ion-avatar item-left>
-        <img src="assets/img/tag.png" offset="100"
+        <img src="assets/img/icon.png" offset="200"
           [lazyLoad]="category.imageThumb.url()"
           [scrollTarget]="container.getScrollElement()">
       </ion-avatar>
-      <h2>{{ category.title }}</h2>
+      <p style="font-size: 14pt; color: black;">{{ category.title }}</p>
     </ion-item>
   </ion-list>
 

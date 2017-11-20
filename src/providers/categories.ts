@@ -12,6 +12,7 @@ export class Category extends Parse.Object {
 
     return new Promise((resolve, reject) => {
       let query = new Parse.Query(this);
+      query.ascending('title')
       query.find().then(data => {
         resolve(data);
       }, error => {

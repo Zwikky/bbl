@@ -2,9 +2,9 @@
   <ion-header>
     <ion-toolbar class="menu-toolbar" color="dark">
       <ion-item no-lines *ngIf="user">
-        <ion-avatar item-left>
+        <ion-thumbnail item-left>
           <img [src]="user.get('photo') ? user.get('photo').url() : ''" src-fallback="assets/img/avatar.png">
-        </ion-avatar>
+        </ion-thumbnail>
         <span>{{ user.get('name') }}</span>
       </ion-item>
     </ion-toolbar>
@@ -19,6 +19,18 @@
           {{ p.title }}
         </p>
       </button>
+      <button class="bold" menu-close no-lines ion-item (click)="viewTees()">
+        <ion-icon name="list" item-left color="danger"></ion-icon>
+        <p ion-text color="dark">
+            {{ "TEES" | translate}}
+        </p>  
+      </button>
+      <a class="bold" href="mailto:assist@blackbusinesslocator.co.za" menu-close no-lines ion-item>
+        <ion-icon name="information-circle" item-left color="danger"></ion-icon>
+        <p ion-text color="dark">
+            {{ "CONTACT" | translate}}
+        </p>  
+      </a>
     </ion-list>
   </ion-content>
 

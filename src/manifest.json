@@ -1,6 +1,6 @@
 {
-  "name": "NearmeApp",
-  "short_name": "NearmeApp",
+  "name": "Black Business Locator",
+  "short_name": "Black Business Locator",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

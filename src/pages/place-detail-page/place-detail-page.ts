@@ -103,7 +103,7 @@ export class PlaceDetailPage extends BasePage {
   }
 
   onShare () {
-    this.socialSharing.share(this.place.title, null, null, this.place.website);
+    this.socialSharing.share("Get more info on Black Business Locator about: " + this.place.title, null, null, "https://play.google.com/store/apps/details?id=net.smartdev.bbl");
   }
 
   onCall () {

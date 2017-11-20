@@ -204,7 +204,7 @@ export class MapPage extends BasePage {
 
       let markerOptions = {
         position: target,
-        title: place.title,
+        title: place.title +" ===> "+ place.phone,
         snippet: place.description,
         icon: icon,
         place: place,
