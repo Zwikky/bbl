@@ -1,11 +1,13 @@
 import { IonicPage } from 'ionic-angular';
 import { Component, Injector } from '@angular/core';
 import { Events } from 'ionic-angular';
+import { HttpModule, Http } from '@angular/http';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Category } from '../../providers/categories';
 import { BasePage } from '../base-page/base-page';
 import { User } from '../../providers/user-service';
+import {FormControl} from "@angular/forms";
 
 @IonicPage()
 @Component({
@@ -15,13 +17,17 @@ import { User } from '../../providers/user-service';
 export class CategoriesPage extends BasePage {
 
   private categories: Array<Category>;
+  searchTerm: string = '';
+  public searchControl: FormControl;
 
   constructor(injector: Injector,
     private events: Events,
+    public http: HttpModule,
     private locationAccuracy: LocationAccuracy,
     private diagnostic: Diagnostic) {
     super(injector);
-
+    
+    this.searchControl = new FormControl();
 
     this.locationAccuracy.canRequest().then((canRequest: boolean) => {
 
@@ -50,7 +56,9 @@ export class CategoriesPage extends BasePage {
 
   ionViewDidLoad() {
     this.showLoadingView();
-    this.loadData();
+    //this.loadData();
+    this.setFilteredItems();
+
   }
 
   goToPlaces(category) {
@@ -61,7 +69,13 @@ export class CategoriesPage extends BasePage {
     Category.load().then(data => {
       this.categories = data;
 
+      var searchTerm = '';
+
       if (this.categories.length) {
+         
+        this.categories = this.searchCatags(searchTerm)
+       
+
         this.showContentView();
       } else {
         this.showEmptyView();
@@ -82,9 +96,21 @@ export class CategoriesPage extends BasePage {
     });
   }
 
-  onReload(refresher) {
+
+searchCatags(searchTerm: any) {
+
+  return this.categories.filter((item) => {
+    return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+
+}
+
+public setFilteredItems() {
+  this.categories = this.searchCatags(this.searchTerm);
+}
+
+  onReload(refresher, searchTerm) {
     this.refresher = refresher;
-    this.loadData();
   }
 
 }

@@ -41,6 +41,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
 import { TermsProvider } from '../providers/terms/terms';
+import { Notification } from '../providers/messages/messages';
+import { FeaturedProvider } from '../providers/featured/featured';
 
 export function HttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -90,6 +92,8 @@ export function HttpLoaderFactory(http: Http) {
     BrowserTab,
     File,
     Preference, MapStyle, { provide: ErrorHandler, useClass: IonicErrorHandler },
-    TermsProvider]
+    TermsProvider,
+    Notification,
+    FeaturedProvider]
 })
 export class AppModule {}

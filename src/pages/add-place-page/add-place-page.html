@@ -3,14 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ "Add Business" | translate }}</ion-title>
+    <ion-title>{{ "ADD_PLACE" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content color="dark">
 
   <div showWhen="android,ios">
-    <ion-searchbar color="dark" placeholder="{{ 'ENTER_ADDRESS' | translate }}"
+    <ion-searchbar color="dark" placeholder="{{ 'SEARCH' | translate }}"
       (ionInput)="onSearchAddress($event)"></ion-searchbar>
     <div id="map_add" class="map"></div>
   </div>
@@ -22,14 +22,14 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
       <ion-item>
-        <ion-icon name="at" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "NAME" | translate }}</ion-label>
+        <ion-icon name="briefcase" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "NAME" | translate }}</ion-label>
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="pricetag" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "CATEGORY" | translate }}</ion-label>
+        <ion-icon name="pricetag" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "CATEGORY" | translate }}</ion-label>
         <ion-select formControlName="category">
           <ion-option *ngFor="let category of categories" [value]="category">
             {{ category.title }}
@@ -38,59 +38,120 @@
       </ion-item>
 
       <ion-item>
-        <ion-icon name="create" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "DESCRIPTION" | translate }}</ion-label>
-        <ion-textarea formControlName="description"></ion-textarea>
+        <ion-icon name="create" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "DESCRIPTION" | translate }}</ion-label>
+        <ion-textarea maxlength="600" rows="5" formControlName="description"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="globe" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "WEBSITE" | translate }}</ion-label>
+        <ion-icon name="globe" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "WEBSITE" | translate }}</ion-label>
         <ion-input type="url" formControlName="website"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="mail" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "EMAIL" | translate }}</ion-label>
+        <ion-icon name="mail" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "EMAIL" | translate }}</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="pin" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "ADDRESS" | translate }}</ion-label>
+        <ion-icon name="person" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "Contact Person" | translate }}</ion-label>
+        <ion-input type="text" formControlName="person"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="pin" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "ADDRESS" | translate }}</ion-label>
         <ion-input type="text" formControlName="address">
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="clock" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "Business Hours" | translate }}</ion-label>
+        <ion-icon name="home" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "Bldg/Office#" | translate }}</ion-label>
+        <ion-input type="text" formControlName="office">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "Mon-Fri" | translate }}</ion-label>
         <ion-input type="text" formControlName="hours" placeholder="08:00 - 17:00"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="call" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "PHONE" | translate }}</ion-label>
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "Sat" | translate }}</ion-label>
+        <ion-input type="text" formControlName="weekend" placeholder="08:00 - 17:00(optional)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "Sun" | translate }}</ion-label>
+        <ion-input type="text" formControlName="sunday" placeholder="08:00 - 17:00(optional)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="call" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "PHONE" | translate }}</ion-label>
         <ion-input type="text" formControlName="phone"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="call" item-left color="primary"></ion-icon>
-        <ion-label color="primary">{{ "PHONE" | translate }} 2</ion-label>
+        <ion-icon name="call" item-left color="danger"></ion-icon>
+        <ion-label color="dark">{{ "PHONE" | translate }} 2</ion-label>
         <ion-input type="text" formControlName="phone2" placeholder="(optional)"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label color="primary">
-          {{ "UPLOAD_PICTURE" | translate }}
+      <ion-item *ngIf="isUpload1">
+        <ion-label color="dark">
+          Company Logo
         </ion-label>
         <button type="button" ion-button clear item-right icon-only (click)="onUpload()">
-          <ion-icon name="camera" item-left color="primary"></ion-icon>
+          <ion-icon name="camera" item-left color="danger"></ion-icon>
         </button>
       </ion-item>
 
+      <ion-item *ngIf="isUpload2">
+        <ion-label color="dark">
+          {{ "UPLOAD_PICTURE" | translate }} 1
+        </ion-label>
+        <button type="button" ion-button clear item-right icon-only (click)="onUpload2()">
+          <ion-icon name="camera" item-left color="danger"></ion-icon>
+        </button>
+      </ion-item>
+
+      <ion-item  *ngIf="isUpload3">
+        <ion-label color="dark">
+          {{ "UPLOAD_PICTURE" | translate }} 2
+        </ion-label>
+        <button type="button" ion-button clear item-right icon-only (click)="onUpload3()">
+          <ion-icon name="camera" item-left color="danger"></ion-icon>
+        </button>
+      </ion-item>
+
+      <ion-item  *ngIf="isUpload4">
+        <ion-label color="dark">
+          {{ "UPLOAD_PICTURE" | translate }} 3
+        </ion-label>
+        <button type="button" ion-button clear item-right icon-only (click)="onUpload4()">
+          <ion-icon name="camera" item-left color="danger"></ion-icon>
+        </button>
+      </ion-item>
+
+      <ion-item class="no-lines">
+        <ion-toggle (ionChange)="onAgree()" color="danger">      
+        </ion-toggle>
+        <ion-label (click)="viewTees()" style="color: blue;">
+          {{ "TERMS" | translate }}
+        </ion-label>
+        
+      </ion-item>
+
       <div padding>
-        <button type="submit" ion-button block [disabled]="!form.valid">
+        <button type="submit" ion-button block *ngIf="didAgree">
           {{ "SUBMIT" | translate }}
         </button>
       </div>

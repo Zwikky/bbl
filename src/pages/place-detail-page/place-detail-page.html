@@ -19,7 +19,7 @@
       <span ion-text color="primary">{{ place.title }}</span>
     </ion-card-header>
     <ion-card-content>
-      <span ion-text color="light">{{ place.description }}</span>
+     <span ion-text color="light" style="font-size: 12pt;">{{ place.description }}</span>
     </ion-card-content>
     <ion-grid>
       <ion-row no-padding>
@@ -51,7 +51,7 @@
   <ion-card class="card-secondary">
 
     <img src="assets/img/avatar.png" offset="100"
-      lazyLoad="https://maps.googleapis.com/maps/api/staticmap?markers=color:yellow%7C{{place.location.latitude}},{{place.location.longitude}}&zoom=18&format=png&maptype=roadmap&style=element:geometry%7Ccolor:0x242f3e&style=element:labels.text.fill%7Ccolor:0x746855&style=element:labels.text.stroke%7Ccolor:0x242f3e&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi.park%7Celement:geometry%7Ccolor:0x263c3f&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x6b9a76&style=feature:road%7Celement:geometry%7Ccolor:0x38414e&style=feature:road%7Celement:geometry.stroke%7Ccolor:0x212a37&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x9ca5b3&style=feature:road.highway%7Celement:geometry%7Ccolor:0x746855&style=feature:road.highway%7Celement:geometry.stroke%7Ccolor:0x1f2835&style=feature:road.highway%7Celement:labels.text.fill%7Ccolor:0xf3d19c&style=feature:transit%7Celement:geometry%7Ccolor:0x2f3948&style=feature:transit.station%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:water%7Celement:geometry%7Ccolor:0x17263c&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x515c6d&style=feature:water%7Celement:labels.text.stroke%7Ccolor:0x17263c&size=600x250"
+      lazyLoad="https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C{{place.location.latitude}},{{place.location.longitude}}&zoom=18&format=png&maptype=roadmap&style=element:geometry%7Ccolor:ff&style=element:labels.text.fill%7Ccolor:0x746855&style=element:labels.text.stroke%7Ccolor:0x242f3e&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:poi.park%7Celement:geometry%7Ccolor:0x263c3f&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x6b9a76&style=feature:road%7Celement:geometry%7Ccolor:0x38414e&style=feature:road%7Celement:geometry.stroke%7Ccolor:0x212a37&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x9ca5b3&style=feature:road.highway%7Celement:geometry%7Ccolor:0x746855&style=feature:road.highway%7Celement:geometry.stroke%7Ccolor:0x1f2835&style=feature:road.highway%7Celement:labels.text.fill%7Ccolor:0xf3d19c&style=feature:transit%7Celement:geometry%7Ccolor:0x2f3948&style=feature:transit.station%7Celement:labels.text.fill%7Ccolor:0xd59563&style=feature:water%7Celement:geometry%7Ccolor:0x17263c&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x515c6d&style=feature:water%7Celement:labels.text.stroke%7Ccolor:0x17263c&size=600x450"
       [scrollTarget]="container.getScrollElement()">
     <ion-fab right top>
       <button ion-fab (click)="goToMap()">
@@ -60,7 +60,8 @@
     </ion-fab>
 
     <ion-card-content color="secondary" *ngIf="place.address" text-center>
-      <span ion-text color="light">{{ place.address }}</span>
+      <span ion-text color="light">{{ place.address }}</span><br>
+      <span ion-text color="light">{{ place.office }}</span>
     </ion-card-content>
 
     <ion-item color="secondary">
@@ -96,7 +97,7 @@
         {{ place.phone }}
       </button>
 
-      <button ion-item (click)="onCall()" *ngIf="place.phone2">
+      <button ion-item (click)="onCallTwo()" *ngIf="place.phone2">
         <ion-icon name="call" item-left color="danger"></ion-icon>
         {{ place.phone2 }}
       </button>
@@ -107,9 +108,19 @@
       </button>
 
 
-      <button ion-item (click)="openUrl()" *ngIf="place.hours">
+      <button ion-item *ngIf="place.hours">
         <ion-icon name="clock" item-left color="danger"></ion-icon>
-        {{ place.hours }}
+        Mon - Fri: {{ place.hours }}
+      </button>
+
+      <button ion-item *ngIf="place.weekend">
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        Sat: {{ place.weekend }}
+      </button>
+
+      <button ion-item *ngIf="place.sunday">
+        <ion-icon name="clock" item-left color="danger"></ion-icon>
+        Sun: {{ place.sunday }}
       </button>
 
       <button ion-item (click)="goToReviews()">

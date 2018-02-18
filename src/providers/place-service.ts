@@ -105,6 +105,45 @@ export class Place extends Parse.Object {
     });
   }
 
+  static loadBusiness(params): Promise<Place[]> {
+    
+        return new Promise((resolve, reject) => {
+    
+          let page = params.page || 0;
+          let limit = params.limit || 50;
+    
+          let query = new Parse.Query(this);
+          query.equalTo('isApproved', true);
+          query.equalTo('user', Parse.User.current());
+    
+          query.skip(page * limit);
+          query.limit(limit);
+    
+          query.find().then(data => resolve(data), error => reject(error));
+        });
+      }
+
+  static loadFeatured(params): Promise<Place[]> {
+    
+        return new Promise((resolve, reject) => {
+    
+          let page = params.page || 0;
+          let limit = params.limit || 50;
+    
+          let query = new Parse.Query(this);
+          query.equalTo('isApproved', true);
+          query.equalTo('isFeatured', true);
+    
+          query.skip(page * limit);
+          query.limit(limit);
+    
+          query.find().then(data => resolve(data), error => reject(error));
+        });
+      }
+
+  
+  
+      
   static create(data): Promise<Place> {
 
     return new Promise((resolve, reject) => {
@@ -168,6 +207,31 @@ export class Place extends Parse.Object {
     this.set('hours', val);
   }
 
+  get weekend(): string {
+    return this.get('weekend');
+  }
+
+  set weekend(val) {
+    this.set('weekend', val);
+  }
+
+  get sunday(): string {
+    return this.get('sunday');
+  }
+
+  set sunday(val) {
+    this.set('sunday', val);
+  }
+
+
+  get office(): string {
+    return this.get('office');
+  }
+
+  set office(val) {
+    this.set('office', val);
+  }
+
   get website(): string {
     return this.get('website');
   }
@@ -192,6 +256,14 @@ export class Place extends Parse.Object {
     this.set('category', val);
   }
 
+  get person() {
+    return this.get('person');
+  }
+
+  set person(val) {
+    this.set('person', val);
+  }
+
   get image() {
     return this.get('image');
   }
@@ -199,16 +271,14 @@ export class Place extends Parse.Object {
   set image(val) {
     this.set('image', val);
   }
+  
 
   get location() {
     return this.get('location');
   }
 
   set location(val) {
-    var geoPoint = new Parse.GeoPoint({
-      latitude: val.lat,
-      longitude: val.lng
-    });
+    var geoPoint = new Parse.GeoPoint(val);
     this.set('location', geoPoint);
   }
 
@@ -216,13 +286,27 @@ export class Place extends Parse.Object {
     return this.get('imageTwo');
   }
 
+  set imageTwo(val) {
+    this.set('imageTwo', val)
+  }
+
   get imageThree() {
     return this.get('imageThree');
   }
 
+  set imageThree(val) {
+    this.set('imageThree', val)
+  }
+
+
   get imageFour() {
     return this.get('imageFour');
   }
+
+  set imageFour(val) {
+    this.set('imageFour', val)
+  }
+
 
   get imageThumb() {
     return this.get('imageThumb');

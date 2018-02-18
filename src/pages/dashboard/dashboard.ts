@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from '../../providers/user-service';
 
 @IonicPage()
 @Component({
@@ -23,16 +24,36 @@ export class DashboardPage{
     this.navCtrl.push('CategoriesPage');
   }
 
+  goToFeatured(){
+    this.navCtrl.push('FeaturedPage');
+  }
+
   goToProfile(){
-    this.navCtrl.push('SignInPage');
+    if (User.getCurrentUser()) {
+      this.navCtrl.push('ProfilePage');
+    } else {
+      this.openSignUpModal();
+    }
   }
 
   goToSearch(){
     this.navCtrl.push('MapPage');
   }
 
-  goToAdd(){
-    this.navCtrl.push('AddPlacePage');
+  goToMessages(){
+    this.navCtrl.push('MessagesPage');
+  }
+
+  openSignUpModal() {
+    this.navCtrl.push('SignInPage');
+  }
+
+  goToAdd(){    
+    if (User.getCurrentUser()) {
+      this.navCtrl.push('AddPlacePage');
+    } else {
+      this.openSignUpModal();
+    }
   }
 
 }

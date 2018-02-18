@@ -66,13 +66,29 @@ export class MapPage extends BasePage {
 
       this.showLoadingView();
 
-      this.map = new GoogleMap('map', {
-        styles: MapStyle.dark(),
-        backgroundColor: '#333333'
-      });
+      this.map = new GoogleMap('map');
 
       this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
 
+        this.geolocation.getCurrentPosition().then((resp) => {
+          resp.coords.latitude
+          resp.coords.longitude
+
+          let target: LatLng = new LatLng(
+            resp.coords.latitude,
+            resp.coords.longitude
+          );
+
+          let optionsMark = {
+            position: target,
+            title: 'You',
+          } ;
+          this.map.addMarker(optionsMark)
+         }).catch((error) => {
+           console.log('Error getting location', error);
+         });
+
+        
         this.storage.unit.then(unit => {
           
           this.params.unit = unit;
@@ -81,6 +97,7 @@ export class MapPage extends BasePage {
             enableHighAccuracy: true,
             timeout: 7000
           };
+
 
           this.geolocation.getCurrentPosition(options).then(pos => {
 
@@ -95,9 +112,9 @@ export class MapPage extends BasePage {
         });
       });
 
-      this.storage.mapStyle.then(mapStyle => {
+      /*this.storage.mapStyle.then(mapStyle => {
         this.map.setMapTypeId(mapStyle);
-      });
+      });*/
 
       this.map.on(GoogleMapsEvent.MY_LOCATION_BUTTON_CLICK).subscribe((map: GoogleMap) => {
 
@@ -202,9 +219,17 @@ export class MapPage extends BasePage {
         }
       } : 'yellow';
 
+      let rate : any;
+
+      if(place.rating == null){
+        rate = 0;
+      }else{
+        rate = place.rating;
+      }
+
       let markerOptions = {
         position: target,
-        title: place.title +" ===> "+ place.phone,
+        title: place.title +" ==> "+ place.phone + '\n' + "Rating = " +  rate + " stars \nClick Here to View More..." ,
         snippet: place.description,
         icon: icon,
         place: place,
@@ -216,7 +241,9 @@ export class MapPage extends BasePage {
       this.map.addMarker(markerOptions).then((marker: Marker) => {
 
         marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe(e => {
-          this.goToPlace(e.get('place'));
+         // this.goToPlace(e.get('place'));
+         // e.get()
+         this.goToPlace(place)
         });
       });
 
@@ -226,7 +253,7 @@ export class MapPage extends BasePage {
     if (points.length) {
       this.map.moveCamera({
         target: new LatLngBounds(points),
-        zoom: 10
+        zoom: 5
       });
     }
 

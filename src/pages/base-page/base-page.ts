@@ -7,8 +7,10 @@ export abstract class BasePage {
 
   public isErrorViewVisible: boolean;
   public isEmptyViewVisible: boolean;
+  public isEmptyTabViewVisible: boolean;
   public isContentViewVisible: boolean;
   public isLoadingViewVisible: boolean;
+  public isEmptyMyVisible: boolean;
 
   protected refresher: any;
   protected infiniteScroll: any;
@@ -48,6 +50,11 @@ export abstract class BasePage {
         content: `<p class="item">${loadingText}</p>`,
       });
       this.loader.present();
+
+      setTimeout(() => {
+        this.loader.dismiss();
+      }, 5000);
+
     });
   }
 
@@ -67,6 +74,26 @@ export abstract class BasePage {
     this.isLoadingViewVisible = false;
     this.isContentViewVisible = false;
     this.isEmptyViewVisible = true;
+
+    this.loader.dismiss();
+  }
+
+  showEmptyTabView() {
+
+    this.isErrorViewVisible = false;
+    this.isLoadingViewVisible = false;
+    this.isContentViewVisible = false;
+    this.isEmptyTabViewVisible = true;
+
+    this.loader.dismiss();
+  }
+
+  showEmptyMyView() {
+
+    this.isErrorViewVisible = false;
+    this.isLoadingViewVisible = false;
+    this.isContentViewVisible = false;
+    this.isEmptyMyVisible = true;
 
     this.loader.dismiss();
   }

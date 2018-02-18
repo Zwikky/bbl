@@ -1,16 +1,19 @@
 import { IonicPage } from 'ionic-angular';
 import { Component, Injector } from '@angular/core';
-import { ActionSheetController, Platform, Events } from 'ionic-angular';
+import { ActionSheetController, Platform, Events, NavController } from 'ionic-angular';
 import { BasePage } from '../base-page/base-page';
 import { Place } from '../../providers/place-service';
 import { MapStyle } from '../../providers/map-style';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ParseFile } from '../../providers/parse-file-service';
+import { BrowserTab } from '@ionic-native/browser-tab';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { Category } from '../../providers/categories';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { CameraPosition, GoogleMap, GoogleMaps, GoogleMapsEvent, Marker,
   MarkerOptions, LatLng, Geocoder, GeocoderRequest, GeocoderResult } from '@ionic-native/google-maps';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @IonicPage()
 @Component({
@@ -26,10 +29,20 @@ export class AddPlacePage extends BasePage {
   trans: any;
   isViewLoaded: boolean;
 
+  isUpload1: boolean = true;
+  isUpload2: boolean = true;
+  isUpload3: boolean = true;
+  isUpload4: boolean = true;
+
+  didAgree: boolean = false;
+
   constructor(injector: Injector,
     private formBuilder: FormBuilder,
     private platform: Platform,
+    private nav: NavController,
     private place: Place,
+    private inAppBrowser: InAppBrowser,
+    private browserTab: BrowserTab,
     private geolocation: Geolocation,
     private googleMaps: GoogleMaps,
     private camera: Camera,
@@ -44,9 +57,13 @@ export class AddPlacePage extends BasePage {
       description: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
+      person: new FormControl('', Validators.required),
       phone2: new FormControl(''),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.email),
       hours: new FormControl('', Validators.required),
+      office: new FormControl(''),
+      weekend: new FormControl(''),
+      sunday: new FormControl(''),
       website: new FormControl('http://')
     });
 
@@ -85,6 +102,27 @@ export class AddPlacePage extends BasePage {
     }
   }
 
+  onAgree(){
+    if(this.didAgree == true){
+      this.didAgree = false;
+    }else{
+      this.didAgree = true;
+    } 
+    
+  }
+
+  viewTees(){
+    this.browserTab.isAvailable().then((isAvailable: boolean) => {
+  
+      if (isAvailable) {
+        this.browserTab.openUrl('https://drive.google.com/file/d/1yIKmG9S2xPQpPMA9iu5IWKW46fqIVkvp/view');
+      } else {
+        this.inAppBrowser.create('https://drive.google.com/file/d/1yIKmG9S2xPQpPMA9iu5IWKW46fqIVkvp/view', '_system');
+      }
+
+    });
+  }
+
   ionViewDidLoad() {
 
     this.isViewLoaded = true;
@@ -96,8 +134,8 @@ export class AddPlacePage extends BasePage {
     if (this.platform.is('cordova')) {
 
       this.map = new GoogleMap('map_add', {
-        styles: MapStyle.dark(),
-        backgroundColor: '#333333'
+        //styles: MapStyle.light(),
+        //backgroundColor: '#333333'
       });
 
       let markerOptions: MarkerOptions = {
@@ -194,6 +232,7 @@ export class AddPlacePage extends BasePage {
         text: this.trans.PHOTO_LIBRARY,
         handler: () => {
           this.chooseImage(this.camera.PictureSourceType.PHOTOLIBRARY);
+          this.isUpload1 = false;
         }
       }, {
         text: this.trans.CAMERA,
@@ -208,6 +247,159 @@ export class AddPlacePage extends BasePage {
     actionSheet.present();
   }
 
+
+  //Image Two
+  chooseImage2(sourceType: number) {
+    
+        let options: CameraOptions = {
+          sourceType: sourceType,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth: 1000,
+          targetHeight: 1000,
+          quality: 80,
+        }
+        this.camera.getPicture(options).then((imageData) => {
+    
+          this.showLoadingView();
+    
+          ParseFile.upload(imageData).then(file => {
+            this.place.imageTwo = file;
+            this.showContentView();
+            this.showToast(this.trans.FILE_UPLOADED);
+            this.form.removeControl('pic2');
+          }, error => {
+            this.showContentView();
+            this.showToast(this.trans.ERROR_FILE_UPLOAD);
+          })
+        });
+      }
+    
+      onUpload2() {
+        
+    
+        let actionSheet = this.actionSheetCtrl.create({
+          title: this.trans.CHOOSE_AN_OPTION,
+          buttons: [{
+            text: this.trans.PHOTO_LIBRARY,
+            handler: () => {
+              this.chooseImage2(this.camera.PictureSourceType.PHOTOLIBRARY);        
+              this.isUpload2 = false;
+            }
+          }, {
+            text: this.trans.CAMERA,
+            handler: () => {
+              this.chooseImage2(this.camera.PictureSourceType.CAMERA);
+            }
+          },{
+            text: this.trans.CANCEL,
+            role: 'cancel'
+          }]
+        });
+        actionSheet.present();
+      }
+
+  //Image Three
+  chooseImage3(sourceType: number) {
+    
+        let options: CameraOptions = {
+          sourceType: sourceType,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth: 1000,
+          targetHeight: 1000,
+          quality: 80,
+        }
+        this.camera.getPicture(options).then((imageData) => {
+    
+          this.showLoadingView();
+    
+          ParseFile.upload(imageData).then(file => {
+            this.place.imageThree = file;
+            this.showContentView();
+            this.showToast(this.trans.FILE_UPLOADED);
+          }, error => {
+            this.showContentView();
+            this.showToast(this.trans.ERROR_FILE_UPLOAD);
+          })
+        });
+        }
+  
+  
+  onUpload3() {
+    
+        let actionSheet = this.actionSheetCtrl.create({
+          title: this.trans.CHOOSE_AN_OPTION,
+          buttons: [{
+            text: this.trans.PHOTO_LIBRARY,
+            handler: () => {
+              this.chooseImage3(this.camera.PictureSourceType.PHOTOLIBRARY);
+              this.isUpload4 = false;
+            }
+          }, {
+            text: this.trans.CAMERA,
+            handler: () => {
+              this.chooseImage3(this.camera.PictureSourceType.CAMERA);
+              this.isUpload3 = false;
+            }
+          },{
+            text: this.trans.CANCEL,
+            role: 'cancel'
+          }]
+        });
+        actionSheet.present();
+      }
+
+    //Image Four
+    chooseImage4(sourceType: number) {
+      
+          let options: CameraOptions = {
+            sourceType: sourceType,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            quality: 80,
+          }
+          this.camera.getPicture(options).then((imageData) => {
+      
+            this.showLoadingView();
+      
+            ParseFile.upload(imageData).then(file => {
+              this.place.imageFour = file;
+              this.showContentView();
+              this.showToast(this.trans.FILE_UPLOADED);
+            }, error => {
+              this.showContentView();
+              this.showToast(this.trans.ERROR_FILE_UPLOAD);
+            })
+          });
+          }
+    
+    
+    onUpload4() {
+      
+          let actionSheet = this.actionSheetCtrl.create({
+            title: this.trans.CHOOSE_AN_OPTION,
+            buttons: [{
+              text: this.trans.PHOTO_LIBRARY,
+              handler: () => {
+                this.chooseImage4(this.camera.PictureSourceType.PHOTOLIBRARY);
+                this.isUpload4 = false;
+              }
+            }, {
+              text: this.trans.CAMERA,
+              handler: () => {
+                this.chooseImage4(this.camera.PictureSourceType.CAMERA);
+              }
+            },{
+              text: this.trans.CANCEL,
+              role: 'cancel'
+            }]
+          });
+          actionSheet.present();
+        }
+  
+
+
+
   onSubmit() {
 
     this.place.title = this.form.value.name;
@@ -219,30 +411,31 @@ export class AddPlacePage extends BasePage {
     this.place.phone2 = this.form.value.phone2;
     this.place.hours = this.form.value.hours;
     this.place.email = this.form.value.email;
+    this.place.office = this.form.value.office;
+    this.place.weekend = this.form.value.weekend;
+    this.place.sunday = this.form.value.sunday;
 
+    //this.showToast('Patience...Loading')
     this.showLoadingView();
-
+        
     const options: GeolocationOptions = {
       enableHighAccuracy: true,
       timeout: 10000
     };
 
-    this.geolocation.getCurrentPosition(options).then(pos => {
-      this.place.location = pos.coords;
-    });
-
-
-  this.marker.getPosition().then(position => {
-
-     this.place.location = position;
+   this.geolocation.getCurrentPosition(options).then(pos => {
+   
+      
+      this.place.location = [pos.coords.latitude,pos.coords.longitude];
 
       this.place.save().then(place => {
-        this.showContentView();
-        this.translate.get('PLACE_ADDED').subscribe(str => this.showToast(str));
-      }, error => {
-        this.showContentView();
-        this.translate.get('ERROR_PLACE_ADD').subscribe(str => this.showToast(str));
-      });
+            this.showContentView();
+            this.translate.get('PLACE_ADDED').subscribe(str => this.showToast(str));
+            this.nav.push(DashboardPage);
+          }, error => {
+            this.showContentView();
+            this.translate.get('Error Adding').subscribe(str => this.showToast(str));
+          });
     });
 
   }

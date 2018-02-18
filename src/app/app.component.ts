@@ -22,6 +22,7 @@ import { BrowserTab } from '@ionic-native/browser-tab';
 import { User } from '../providers/user-service';
 import { LocalStorage } from '../providers/local-storage';
 import { Preference } from '../providers/preference';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   templateUrl: 'app.html'
@@ -44,7 +45,7 @@ export class MyApp {
     private browserTab: BrowserTab,
     private preference: Preference,
     private notification: OneSignal,
-   // public navCtrl: NavController,
+    private socialSharing: SocialSharing,
     private app: App,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
@@ -68,7 +69,7 @@ export class MyApp {
 
   buildMenu() {
 
-    let trans = ['CATEGORIES', 'MAP', 'ADD_PLACE', 'MY_FAVORITES',
+    let trans = ['CATEGORIES', 'MAP', 'ADD_PLACE','MY_BUSINESS' ,'MY_FAVORITES',
     'SETTINGS', 'LOGOUT', 'LOGGED_OUT', 'PROFILE', 'TEES'];
 
     this.translate.get(trans).subscribe(values => {
@@ -76,9 +77,7 @@ export class MyApp {
       this.trans = values;
 
       this.pages = [
-        { title: values.CATEGORIES, icon: 'pricetag', component: 'CategoriesPage' },
-        { title: values.MAP, icon: 'map', component: 'MapPage' },
-        { title: values.ADD_PLACE, icon: 'create', component: 'AddPlacePage' },
+        { title: values.MY_BUSINESS, icon: 'briefcase', component: 'BusinessPage' },
         { title: values.MY_FAVORITES, icon: 'heart', component: 'FavoritesPage' },
         { title: values.SETTINGS, icon: 'settings', component: 'SettingsPage' }
       ];
@@ -104,6 +103,30 @@ export class MyApp {
       });
   
     
+  }
+
+  doContact() {
+    let alert = this.alertCtrl.create({
+      title: 'Contact Options',
+      message: 'Please choose method to use.',
+      buttons: [
+        {
+          text: 'Whatsapp',
+          role: 'cancel',
+          handler: () => {
+            this.socialSharing.shareViaWhatsApp('Black Business Locator:', null, null);
+          }
+        },
+        {
+          text: 'Email',
+          handler: () => {
+            var email = ['info@blackbusinesslocator.co.za'];
+            this.socialSharing.shareViaEmail('Help from BBL', 'Help from BBL', email , null, null, null);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 
@@ -246,7 +269,7 @@ export class MyApp {
 
   openPage(page) {
 
-    if ((page.component === 'FavoritesPage' || page.component === 'AddPlacePage') && !User.getCurrentUser()) {
+    if ((page.component === 'FavoritesPage' || page.component === 'BusinessPage' ||page.component === 'AddPlacePage') && !User.getCurrentUser()) {
 
       this.nav.push('SignInPage');
 

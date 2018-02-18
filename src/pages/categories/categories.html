@@ -4,7 +4,9 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{'CATEGORIES' | translate}}</ion-title>
+    
   </ion-navbar>
+  <ion-toolbar><ion-searchbar color="dark" placeholder="{{ 'SEARCH' | translate }}"  [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar></ion-toolbar>
 </ion-header>
 
 <ion-content #container>
@@ -25,9 +27,10 @@
   </ion-refresher>
 
   <ion-list *ngIf="isContentViewVisible">
-    <ion-item class="bold" *ngFor="let category of categories" (click)="goToPlaces(category)">
+      
+    <ion-item *ngFor="let category of categories" (click)="goToPlaces(category)">
       <ion-avatar item-left>
-        <img src="assets/img/icon.png" offset="200"
+        <img  src="assets/img/icon.png" offset="200"
           [lazyLoad]="category.imageThumb.url()"
           [scrollTarget]="container.getScrollElement()">
       </ion-avatar>

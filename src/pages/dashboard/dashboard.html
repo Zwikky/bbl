@@ -14,29 +14,43 @@
       <ion-thumbnail item-left>
         <img src="assets/img/categories.png" offset="100">
       </ion-thumbnail>
-      <h2>Categories</h2>
+      <h2>{{ "CATEGORIES" | translate}}</h2>
       </ion-item>
+<br>
+<ion-item (click)="goToFeatured()" color="dark" no-lines>
+  <ion-thumbnail item-left>
+    <img src="assets/img/favorite.png" offset="100">
+  </ion-thumbnail>
+  <h2>{{ "FEATURED_PAGE" | translate}}</h2>
+  </ion-item>
 <br>
       <ion-item (click)="goToSearch()" color="dark" no-lines>
           <ion-thumbnail item-left>
             <img src="assets/img/search.png" offset="100">
           </ion-thumbnail>
-          <h2>Search</h2>
+          <h2>{{ "SEARCH" | translate}}</h2>
           </ion-item>
 <br>
           <ion-item (click)="goToAdd()" color="dark" no-lines>
               <ion-thumbnail item-left>
                 <img src="assets/img/add.png" offset="100">
               </ion-thumbnail>
-              <h2>Add Business</h2>
+              <h2>{{ "ADD_PLACE" | translate}}</h2>
               </ion-item>
               <br>
               <ion-item (click)="goToProfile()" color="dark" no-lines>
                   <ion-thumbnail item-left>
                     <img src="assets/img/profile.png" offset="100">
                   </ion-thumbnail>
-                  <h2>Profile</h2>
+                  <h2>{{ "PROFILE" | translate}}</h2>
                   </ion-item>
+                  <br>
+                  <ion-item (click)="goToMessages()" color="dark" no-lines>
+                      <ion-thumbnail item-left>
+                        <img src="assets/img/mail.png" offset="100">
+                      </ion-thumbnail>
+                      <h2>{{ "MESSAGES" | translate}}</h2>
+                      </ion-item>
   </ion-list>
 
 </ion-content>

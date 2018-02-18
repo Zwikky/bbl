@@ -11,23 +11,23 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button class="bold" menuClose text-uppercase no-lines ion-item
+    <ion-list style="font-size: 14pt;">
+      <button class="bold" menuClose no-lines ion-item
         *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon" item-left color="danger"></ion-icon>
-        <p ion-text color="dark">
+        <p style="font-size: 14pt;" ion-text color="dark">
           {{ p.title }}
         </p>
       </button>
       <button class="bold" menu-close no-lines ion-item (click)="viewTees()">
         <ion-icon name="list" item-left color="danger"></ion-icon>
-        <p ion-text color="dark">
+        <p style="font-size: 14pt;" ion-text color="dark">
             {{ "TEES" | translate}}
         </p>  
       </button>
-      <a class="bold" href="mailto:assist@blackbusinesslocator.co.za" menu-close no-lines ion-item>
+      <a class="bold" (click)="doContact()" menu-close no-lines ion-item>
         <ion-icon name="information-circle" item-left color="danger"></ion-icon>
-        <p ion-text color="dark">
+        <p style="font-size: 14pt;" ion-text color="dark">
             {{ "CONTACT" | translate}}
         </p>  
       </a>

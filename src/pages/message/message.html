@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{message.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content #container padding>
+<ion-card>
+  <ion-item color="dark">
+    <ion-avatar item-left>
+      <img  src="assets/img/icon.png" offset="200">
+    </ion-avatar>
+    <h2 class="bold" ion-text color="primary">{{ message.title }}</h2>
+  </ion-item>
+  <hr>
+   <ion-item no-lines text-wrap color="primary">
+     <span ion-text>{{message.message}}</span>      
+    </ion-item> 
+  </ion-card>
+  
+</ion-content>

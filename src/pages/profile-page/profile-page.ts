@@ -22,6 +22,14 @@ export class ProfilePage {
     User.stats().then(stats => this.stats = stats);
   }
 
+  goToPlace() {
+    this.navCtrl.push('BusinessPage');
+  }
+
+  goToFavs() {
+    this.navCtrl.push('FavoritesPage');
+  }
+
   ionViewDidLoad() {}
 
   onPresentEditModal() {

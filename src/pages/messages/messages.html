@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{'MESSAGES' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content #container padding>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert"
+    [text]="'ERROR_MESSAGES' | translate">
+  </empty-view>
+
+  <empty-view *ngIf="isEmptyViewVisible" icon="bookmark"
+    [text]="'EMPTY_MESSAGES' | translate">
+  </empty-view>
+
+  <ion-refresher (ionRefresh)="onReload($event)">
+    <ion-refresher-content
+      pullingText="{{ 'PULL_TO_REFRESH' | translate }}"
+      refreshingText="{{ 'REFRESHING' | translate }}">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="isContentViewVisible" >
+    <ion-item *ngFor="let message of messages" (click)="goToMessage(message)"
+    color="dark" no-lines>
+      <ion-thumbnail item-left>
+        <img  src="assets/img/icon.png" offset="200">
+      </ion-thumbnail>
+      <h2 class="bold" ion-text color="primary">{{ message.title }}</h2>
+      <p>{{ message.message }}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

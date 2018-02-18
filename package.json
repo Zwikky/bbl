@@ -34,7 +34,7 @@
         "@ionic-native/launch-navigator": "3.12.1",
         "@ionic-native/location-accuracy": "3.12.1",
         "@ionic-native/onesignal": "^4.3.3",
-        "@ionic-native/social-sharing": "3.12.1",
+        "@ionic-native/social-sharing": "^3.12.1",
         "@ionic-native/splash-screen": "3.12.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic/storage": "2.0.1",

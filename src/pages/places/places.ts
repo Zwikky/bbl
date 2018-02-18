@@ -73,7 +73,12 @@ export class PlacesPage extends BasePage {
       if (this.places.length) {
         this.showContentView();
       } else {
-        this.showEmptyView();
+        if(this.params = 'nearby'){
+          this.showEmptyTabView();
+        }else{
+          this.showEmptyView();
+        }
+        
       }
 
     }, error => {

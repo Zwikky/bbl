@@ -20,14 +20,14 @@
   <h3>{{ user.get('name') }}</h3>
   <ion-row padding-vertical>
     <ion-col col-4>
-      <h2 ion-text color="light">{{ stats.favorites }}</h2>
+      <h2 ion-text color="light" (click)="goToFavs()">{{ stats.favorites }}</h2>
       <span text-uppercase>{{ 'FAVORITES' | translate }}</span>
     </ion-col>
     <ion-col col-4>
       <h2 ion-text color="light">{{ stats.reviews }}</h2>
       <span text-uppercase>{{ 'REVIEWS' | translate }}</span>
     </ion-col>
-    <ion-col col-4>
+    <ion-col col-4 (click)="goToPlace()">
       <h2 ion-text color="light">{{ stats.places }}</h2>
       <span text-uppercase>{{ 'PLACES' | translate }}</span>
     </ion-col>
